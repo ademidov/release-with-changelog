@@ -45,13 +45,14 @@ async function run() {
 		const createReleaseResponse = await octokit.repos.createRelease({
 			repo,
 			owner,
+			name: pushedTag,
 			tag_name: pushedTag, // eslint-disable-line camelcase
 			body: await generateReleaseNotes({range, exclude, commitTemplate, releaseTemplate}),
 			draft: false,
 			prerelease: false
 		});
 
-		core.info('Created release `' + createReleaseResponse.data.id + '` for tag `' + pushedTag + '`');
+		core.info('Created release `' + createReleaseResponse.data.id + '` for tag `' + pushedTag + '`' + '(' + createReleaseResponse.data.name + ')');
 	} catch (error) {
 		core.setFailed(error.message);
 	}
