@@ -45,6 +45,7 @@ async function run() {
 		const createReleaseResponse = await octokit.repos.createRelease({
 			repo,
 			owner,
+			name: pushedTag,
 			tag_name: pushedTag, // eslint-disable-line camelcase
 			body: await generateReleaseNotes({range, exclude, commitTemplate, releaseTemplate}),
 			draft: false,
